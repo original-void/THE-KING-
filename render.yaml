@@ -1,0 +1,9 @@
+services:
+    - type: web
+    name: the-king-bot
+    env: node
+    buildCommand: npm install
+    startCommand: node group-bot.js
+    envVars:
+            - key: PHONE_NUMBER
+        sync: false
