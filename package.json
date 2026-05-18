@@ -1,0 +1,15 @@
+{
+  "name": "team-single-empire-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node group-bot.js"
+  },
+  "dependencies": {
+    "baileys": "^6.7.9",
+    "pino": "^9.2.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
