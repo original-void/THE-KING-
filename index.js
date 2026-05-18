@@ -94,7 +94,7 @@ async function startBot() {
     }
   });
 
-  // Command handler - rest of your code stays the same
+  // Command handler
   sock.ev.on('messages.upsert', async ({ messages }) => {
     const msg = messages[0];
     if (!msg.message || msg.key.fromMe) return;
