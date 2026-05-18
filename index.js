@@ -77,8 +77,7 @@ async function startBot() {
         const name = user.split('@')[0];
         const loveRule = config.antiLove? 'No love talk allowed' : 'Love talk is allowed for now';
         await sock.sendMessage(id, {
-          text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`,
-          mentions:
+          text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`
         });
       }
     }
@@ -87,8 +86,7 @@ async function startBot() {
       for (const user of participants) {
         const name = user.split('@')[0];
         await sock.sendMessage(id, {
-          text: `@${name} left the empire 😔`,
-          mentions:
+          text: `@${name} left the empire 😔`
         });
       }
     }
@@ -140,13 +138,12 @@ async function startBot() {
 
         await sock.sendMessage(sender, {
           text: `@${userId.split('@')[0]} ⚠️ Love talk is banned in ${GROUP_NAME}.\n` +
-                `Warning: ${warnCount}/3\nKeep it clean or you'll be kicked.`,
-          mentions: [userId]
+                `Warning: ${warnCount}/3\nKeep it clean or you'll be kicked.`
         });
 
         if (warnCount >= 3) {
           await sock.groupParticipantsUpdate(sender, [userId], 'remove');
-          await sock.sendMessage(sender, { text: `@${userId.split('@')[0]} kicked for 3 warnings`, mentions: [userId] });
+          await sock.sendMessage(sender, { text: `@${userId.split('@')[0]} kicked for 3 warnings` });
           delete warnings[userId];
           saveWarnings();
         }
@@ -219,8 +216,7 @@ async function startBot() {
       const members = groupMetadata.participants.map(p => p.id);
       const mentions = members.map(m => `@${m.split('@')[0]}`).join(' ');
       await sock.sendMessage(sender, {
-        text: `📢 ATTENTION ${GROUP_NAME}!\n\n${mentions}`,
-        mentions: members
+        text: `📢 ATTENTION ${GROUP_NAME}!\n\n${mentions}`
       });
     }
 
@@ -228,21 +224,21 @@ async function startBot() {
     if (command?.startsWith('.kick') && isAdmin) {
       if (!mentioned.length) return sock.sendMessage(sender, { text: 'Tag the user to kick:.kick @user' });
       await sock.groupParticipantsUpdate(sender, mentioned, 'remove');
-      await sock.sendMessage(sender, { text: `Kicked @${mentioned[0].split('@')[0]}`, mentions: mentioned });
+      await sock.sendMessage(sender, { text: `Kicked @${mentioned[0].split('@')[0]}` });
     }
 
     //.promote @user
     if (command?.startsWith('.promote') && isAdmin) {
       if (!mentioned.length) return sock.sendMessage(sender, { text: 'Tag the user to promote:.promote @user' });
       await sock.groupParticipantsUpdate(sender, mentioned, 'promote');
-      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} is now admin 👑`, mentions: mentioned });
+      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} is now admin 👑` });
     }
 
     //.demote @user
     if (command?.startsWith('.demote') && isAdmin) {
       if (!mentioned.length) return sock.sendMessage(sender, { text: 'Tag the user to demote:.demote @user' });
       await sock.groupParticipantsUpdate(sender, mentioned, 'demote');
-      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} is no longer admin`, mentions: mentioned });
+      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} is no longer admin` });
     }
 
     //.mute @user 10m
@@ -253,17 +249,17 @@ async function startBot() {
       if (isNaN(minutes)) return sock.sendMessage(sender, { text: 'Use format:.mute @user 10m' });
 
       await sock.groupParticipantsUpdate(sender, mentioned, 'demote');
-      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} muted for ${minutes} min`, mentions: mentioned });
+      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} muted for ${minutes} min` });
 
       setTimeout(async () => {
-        await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} unmuted`, mentions: mentioned });
+        await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} unmuted` });
       }, minutes * 60000);
     }
 
     //.unmute @user
     if (command?.startsWith('.unmute') && isAdmin) {
       if (!mentioned.length) return sock.sendMessage(sender, { text: 'Tag the user to unmute:.unmute @user' });
-      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} unmuted`, mentions: mentioned });
+      await sock.sendMessage(sender, { text: `@${mentioned[0].split('@')[0]} unmuted` });
     }
 
     //.warn @user reason
@@ -278,13 +274,12 @@ async function startBot() {
 
       const warnCount = warnings[userId].length;
       await sock.sendMessage(sender, {
-        text: `@${userId.split('@')[0]} warned. Reason: ${reason}\nWarnings: ${warnCount}/3`,
-        mentions: mentioned
+        text: `@${userId.split('@')[0]} warned. Reason: ${reason}\nWarnings: ${warnCount}/3`
       });
 
       if (warnCount >= 3) {
         await sock.groupParticipantsUpdate(sender, [userId], 'remove');
-        await sock.sendMessage(sender, { text: `@${userId.split('@')[0]} kicked for 3 warnings`, mentions: [userId] });
+        await sock.sendMessage(sender, { text: `@${userId.split('@')[0]} kicked for 3 warnings` });
         delete warnings[userId];
         saveWarnings();
       }
@@ -301,8 +296,7 @@ async function startBot() {
               `Name: @${targetUser.split('@')[0]}\n` +
               `Role: ${userData?.admin? 'Admin' : 'Member'}\n` +
               `Warnings: ${userWarns}/3\n` +
-              `Joined: ${userData?.joinTime? new Date(userData.joinTime * 1000).toLocaleDateString() : 'Unknown'}`,
-        mentions: [targetUser]
+              `Joined: ${userData?.joinTime? new Date(userData.joinTime * 1000).toLocaleDateString() : 'Unknown'}`
       });
     }
 
@@ -316,8 +310,7 @@ async function startBot() {
         });
       }
       await sock.sendMessage(sender, {
-        text: `*Your Info*\nWarnings: ${userWarns}/3${warnList}`,
-        mentions: [senderId]
+        text: `*Your Info*\nWarnings: ${userWarns}/3${warnList}`
       });
     }
   });
