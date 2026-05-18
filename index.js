@@ -1,11 +1,19 @@
 import makeWASocket, { useMultiFileAuthState, DisconnectReason, Browsers, delay } from 'baileys';
 import pino from 'pino';
 import fs from 'fs';
+import http from 'http';
 
 const PHONE_NUMBER = process.env.PHONE_NUMBER;
-const GROUP_NAME = 'TEAM SINGLE EMPIRE';
+const GROUP_NAME = 'THE KING';
 const WARN_FILE = './warnings.json';
 const CONFIG_FILE = './config.json';
+
+// Keep-alive server for Render
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('THE KING bot is alive');
+}).listen(PORT, () => console.log(`Keep-alive server running on port ${PORT}`));
 
 // Load warnings
 let warnings = {};
@@ -70,7 +78,7 @@ async function startBot() {
         const loveRule = config.antiLove? 'No love talk allowed' : 'Love talk is allowed for now';
         await sock.sendMessage(id, {
           text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`,
-          mentions: [user]
+          mentions:
         });
       }
     }
@@ -80,7 +88,7 @@ async function startBot() {
         const name = user.split('@')[0];
         await sock.sendMessage(id, {
           text: `@${name} left the empire 😔`,
-          mentions: [user]
+          mentions:
         });
       }
     }
@@ -104,13 +112,11 @@ async function startBot() {
     const command = text?.toLowerCase().trim();
     const mentioned = msg.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
 
-    // ANTI-LOVE FILTER - only runs if enabled and user isn't admin
+    // ANTI-LOVE FILTER
     if (config.antiLove) {
       const loveWords = [
-        // English
         'love', 'lover', 'lovers', 'crush', 'dating', 'date me', 'girlfriend', 'boyfriend',
         'gf', 'bf', 'marry me', 'i love you', 'ily', 'romance', 'relationship', 'valentine',
-        // Swahili
         'upendo', 'kupenda', 'penzi', 'mapenzi', 'mpenzi', 'wapenzi', 'napenda', 'nakupenda',
         'nakupenda sana', 'mapenzi yangu', 'mchumba', 'kuchumbiana', 'uchumba'
       ];
@@ -155,7 +161,7 @@ async function startBot() {
     //.help
     if (command === '.help') {
       await sock.sendMessage(sender, {
-        text: `*TEAM SINGLE EMPIRE Bot Commands* 👑\n\n` +
+        text: `*THE KING Bot Commands* 👑\n\n` +
               `*Admin only:*\n` +
               `.tagall - Tag everyone\n` +
               `.kick @user - Remove member\n` +
