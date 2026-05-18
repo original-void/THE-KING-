@@ -78,7 +78,7 @@ async function startBot() {
         const loveRule = config.antiLove? 'No love talk allowed' : 'Love talk is allowed for now';
         await sock.sendMessage(id, {
           text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`,
-          mentions:
+          mentions: [user]
         });
       }
     }
@@ -88,7 +88,7 @@ async function startBot() {
         const name = user.split('@')[0];
         await sock.sendMessage(id, {
           text: `@${name} left the empire 😔`,
-          mentions:
+          mentions: [user]
         });
       }
     }
@@ -146,10 +146,7 @@ async function startBot() {
 
         if (warnCount >= 3) {
           await sock.groupParticipantsUpdate(sender, [userId], 'remove');
-          await sock.sendMessage(sender, {
-            text: `@${userId.split('@')[0]} kicked for 3 warnings`,
-            mentions: [userId]
-          });
+          await sock.sendMessage(sender, { text: `@${userId.split('@')[0]} kicked for 3 warnings`, mentions: [userId] });
           delete warnings[userId];
           saveWarnings();
         }
@@ -209,12 +206,10 @@ async function startBot() {
             await sock.sendMessage(sender, { text: 'Invalid time format. Use 30m, 1h, 2h etc.' });
           }
         }
-
       } else if (state === 'on') {
         config.antiLove = true;
         saveConfig();
         await sock.sendMessage(sender, { text: '🚫 Love filter ON. Love talk is banned again.' });
-
       } else {
         await sock.sendMessage(sender, { text: 'Usage:\n.allowlove on\n.allowlove off\n.allowlove off 1h' });
       }
