@@ -1,4 +1,4 @@
-import makeWASocket, { useMultiFileAuthState, DisconnectReason, Browsers, delay } from 'baileys';
+import { default as makeWASocket, useMultiFileAuthState, DisconnectReason, Browsers, delay } from 'baileys';
 import pino from 'pino';
 import fs from 'fs';
 import http from 'http';
