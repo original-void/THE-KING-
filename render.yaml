@@ -3,7 +3,7 @@ services:
     name: the-king-bot
     env: node
     buildCommand: npm install
-    startCommand: node group-bot.js
+    startCommand: node index.js
     envVars:
             - key: PHONE_NUMBER
         sync: false
