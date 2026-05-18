@@ -77,9 +77,9 @@ async function startBot() {
         const name = user.split('@')[0];
         const loveRule = config.antiLove? 'No love talk allowed' : 'Love talk is allowed for now';
         await sock.sendMessage(id, {
-  text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`,
-  mentions:
-});
+          text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`,
+          mentions:
+        });
       }
     }
 
@@ -87,14 +87,14 @@ async function startBot() {
       for (const user of participants) {
         const name = user.split('@')[0];
         await sock.sendMessage(id, {
-  text: `@${name} left the empire 😔`,
-  mentions:
-});
+          text: `@${name} left the empire 😔`,
+          mentions:
+        });
       }
     }
   });
 
-  // Command handler
+  // Command handler - rest of your code stays the same
   sock.ev.on('messages.upsert', async ({ messages }) => {
     const msg = messages[0];
     if (!msg.message || msg.key.fromMe) return;
