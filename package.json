@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node group-bot.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "baileys": "^6.7.9",
