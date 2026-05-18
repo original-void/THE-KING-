@@ -78,7 +78,7 @@ async function startBot() {
         const loveRule = config.antiLove? 'No love talk allowed' : 'Love talk is allowed for now';
         await sock.sendMessage(id, {
           text: `👑 Welcome to ${GROUP_NAME}, @${name}!\n\nRead the group description and follow the rules. ${loveRule} 💪`,
-          mentions: [user]
+          mentions:
         });
       }
     }
@@ -88,7 +88,7 @@ async function startBot() {
         const name = user.split('@')[0];
         await sock.sendMessage(id, {
           text: `@${name} left the empire 😔`,
-          mentions: [user]
+          mentions:
         });
       }
     }
@@ -150,7 +150,6 @@ async function startBot() {
           delete warnings[userId];
           saveWarnings();
         }
-
         return;
       }
     }
